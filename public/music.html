@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+
+
+        body
+        .uuu {
+            position: relative;
+            overflow: hidden;
+            /* Remove background-image here */
+        }
+
+        #bg-video {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .uuu > *:not(#bg-video) {
+            position: relative;
+            z-index: 1;
+        }
+
+        .your {
+            margin: 10px 0;
+            display: none; /* Ensure all audio players are hidden by default */
+        }
+        .your.active {
+            display: block; /* Show only the active audio player */
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            display: none;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .kkk {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+                body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            /* background: #2e7d32;  <-- REMOVE or comment out this line */
+            color: rgb(3, 3, 3);
+            margin: 0;
+            padding: 20px;
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        #game-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            padding: 200px 9px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px 3px rgba(71, 120, 212, 0.5);
+        }
+        .hand {
+            margin: 20px 0;
+        }
+        .card {
+            display: inline-block;
+            width: 79px;
+            height: 120px;
+            background-color: white;
+            color: black;
+            margin: 5px;
+            line-height: 130px;
+            font-size: 29px;
+            border-radius: 5px;
+            border: 1px solid #84baf8;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        .card:hover {
+            transform: scale(1.1);
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        button {
+            padding: 15px 35px;
+            margin: 3px;
+            font-size: 23px;
+            cursor: pointer;
+            background-color: #0288d1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0277bd;
+            box-shadow:  0 0 6px 3px rgb(109, 161, 228);
+        }
+        #message {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        .kkk:hover {
+            background-color: #0056b3;
+            box-shadow: 0 0 6px 3px aqua;
+        }
+        .kkk.active {
+            background-color: #7dc5bf;
+        }
+    </style>
+</head>
+<body>
+<video autoplay loop muted playsinline id="bg-video">
+    <source src="./Best Dancing Wallpapers - Wallpaper Engine.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+<div class="uuu">
+    <div class="your" id="audio-english">
+        <audio src="./Best Dancing Wallpapers - Wallpaper Engine.mp3" controls></audio>
+        <p class="error">Failed to load audio file.</p>
+    </div>
+    <div class="your" id="audio-spanish">
+        <audio src="./Best Dancing Wallpapers - Wallpaper Engine.mp3" controls></audio>
+        <p class="error">Failed to load audio file.</p>
+    </div>
+    <div class="your" id="audio-chinese">
+        <audio src="./Best Dancing Wallpapers - Wallpaper Engine.mp3" controls></audio>
+        <p class="error">Failed to load audio file.</p>
+    </div>
+    <div class="your" id="audio-american">
+        <audio src="./Best Dancing Wallpapers - Wallpaper Engine.mp3" controls></audio>
+        <p class="error">Failed to load audio file.</p>
+    </div>
+    <div class="your" id="audio-german">
+        <audio src="./Best Dancing Wallpapers - Wallpaper Engine.mp3" controls></audio>
+        <p class="error">Failed to load audio file.</p>
+    </div>
+    <div class="your" id="audio-indian">
+        <audio src="./Best Dancing Wallpapers - Wallpaper Engine.mp3" controls></audio>
+        <p class="error">Failed to load audio file.</p>
+    </div>
+    <div class="button-group">
+        <button class="kkk" onclick="showAudio('english')" aria-label="Play English audio">english</button>
+        <button class="kkk" onclick="showAudio('spanish')" aria-label="Play Spanish audio">spanish</button>
+        <button class="kkk" onclick="showAudio('chinese')" aria-label="Play Chinese audio">chinese</button>
+        <button class="kkk" onclick="showAudio('american')" aria-label="Play American audio">american</button>
+        <button class="kkk" onclick="showAudio('german')" aria-label="Play German audio">german</button>
+        <button class="kkk" onclick="showAudio('indian')" aria-label="Play Indian audio">indian</button>
+    </div>
+
+
+        <div id="game-container">
+        <h1>Blackjack</h1>
+        <div id="dealer-hand" class="hand">
+            <h2>Dealer's Hand: <span id="dealer-score">0</span></h2>
+        </div>
+        <div id="player-hand" class="hand">
+            <h2>Your Hand: <span id="player-score">0</span></h2>
+        </div>
+        <div id="message"></div>
+        <button id="hit-button">Hit</button>
+        <button id="stand-button">Stand</button>
+        <button id="new-game-button">New Game</button>
+    </div>
+
+
+    <div id="anya"> <img src="" alt=""> </div>
+    <video id="image" src="./takamura.mp4" loop playsinline style="display:none"></video>
+    <audio id="myAudio" src="./https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" muted></audio>
+</div>
+<script>
+function showAudio(lang) {
+    // Hide all audio containers, pause audio, and reset playback
+    document.querySelectorAll('.your').forEach(div => {
+        div.classList.remove('active');
+        const audio = div.querySelector('audio');
+        if (audio) {
+            audio.pause();
+            audio.currentTime = 0;
+            audio.onerror = () => {
+                const error = div.querySelector('.error');
+                if (error) error.style.display = 'block';
+            };
+        }
+    });
+    // Remove active class from all buttons
+    document.querySelectorAll('.kkk').forEach(btn => btn.classList.remove('active'));
+    // Show the selected audio container
+    const selected = document.getElementById('audio-' + lang);
+    if (selected) {
+        selected.classList.add('active');
+        const audio = selected.querySelector('audio');
+        if (audio) {
+            audio.onerror = () => {
+                const error = selected.querySelector('.error');
+                if (error) error.style.display = 'block';
+            };
+        }
+    }
+    // Highlight the active button
+    const activeButton = document.querySelector(`button[onclick="showAudio('${lang}')"]`);
+    if (activeButton) {
+        activeButton.classList.add('active');
+    }
+}
+// Show only the first audio container on load
+window.onload = () => {
+    document.querySelectorAll('.your').forEach(div => div.classList.remove('active'));
+    const firstAudio = document.getElementById('audio-english');
+    if (firstAudio) {
+        firstAudio.classList.add('active');
+    }
+    document.querySelectorAll('.kkk').forEach(btn => btn.classList.remove('active'));
+    const firstButton = document.querySelector('.kkk');
+    if (firstButton) {
+        firstButton.classList.add('active');
+    }
+};
+
+
+        function triggeringfullscreen(){
+            const video = document.getElementById("image");
+            video.style.display = "block";
+            video.currentTime = 0;
+            video.muted = false; // Unmute if needed
+            video.play();
+
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) { // Safari
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) { // IE11
+                video.msRequestFullscreen();
+            }
+        }
+
+// Listen for fullscreen change and handle exit
+function onFullScreenChange() {
+    const video = document.getElementById("image");
+    // Check if fullscreen is exited
+    if (
+        !document.fullscreenElement &&
+        !document.webkitFullscreenElement &&
+        !document.msFullscreenElement
+    ) {
+        // Pause video and hide it
+        video.pause();
+        video.style.display = "none";
+    }
+}
+
+document.addEventListener("fullscreenchange", onFullScreenChange);
+document.addEventListener("webkitfullscreenchange", onFullScreenChange);
+document.addEventListener("msfullscreenchange", onFullScreenChange);
+
+
+       const suits = ['♠', '♥', '♣', '♦'];
+        const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+        let deck = [];
+        let playerHand = [];
+        let dealerHand = [];
+        let gameOver = false;
+        const synth = window.speechSynthesis;
+
+        function speak(text) {
+            if (synth.speaking) {
+                synth.cancel();
+            }
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.volume = 1;
+            utterance.rate = 0.6;
+            utterance.pitch = 1.3;
+            synth.speak(utterance);
+        }
+
+        function createDeck() {
+            deck = [];
+            for (let suit of suits) {
+                for (let value of values) {
+                    deck.push({ suit, value });
+                }
+            }
+        }
+
+        function shuffleDeck() {
+            for (let i = deck.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [deck[i], deck[j]] = [deck[j], deck[i]];
+            }
+        }
+
+        function dealCard() {
+            return deck.pop();
+        }
+
+        function calculateScore(hand) {
+            let score = 0;
+            let aces = 0;
+            for (let card of hand) {
+                if (card.value === 'A') {
+                    aces += 1;
+                } else if (['J', 'Q', 'K'].includes(card.value)) {
+                    score += 10;
+                } else {
+                    score += parseInt(card.value);
+                }
+            }
+            for (let i = 0; i < aces; i++) {
+                if (score + 11 <= 21) {
+                    score += 11;
+                } else {
+                    score += 1;
+                }
+            }
+            return score;
+        }
+
+        function cardToText(card) {
+            const suitNames = { '♠': 'Spades', '♥': 'Hearts', '♣': 'Clubs', '♦': 'Diamonds' };
+            return `${card.value} of ${suitNames[card.suit]}`;
+        }
+
+        function displayHand(hand, elementId, hideFirstCard = false) {
+            const handElement = document.getElementById(elementId);
+            handElement.innerHTML = `<h2>${elementId === 'dealer-hand' ? "Dealer's Hand" : 'Your Hand'}: <span id="${elementId}-score">${calculateScore(hand)}</span></h2>`;
+            hand.forEach((card, index) => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'card';
+                cardElement.textContent = hideFirstCard && index === 0 ? '??' : `${card.value}${card.suit}`;
+                if (card.suit === '♥' || card.suit === '♦') {
+                    cardElement.style.color = 'red';
+                }
+                handElement.appendChild(cardElement);
+            });
+            if (elementId === 'player-hand' && !hideFirstCard) {
+                speak(`Your hand: ${hand.map(cardToText).join(', ')}. Score: ${calculateScore(hand)}`);
+            }
+        }
+
+        function displayMessage(msg) {
+            document.getElementById('message').textContent = msg;
+            if (msg) {
+                speak(msg);
+            }
+        }
+
+        function checkGameOver() {
+            const playerScore = calculateScore(playerHand);
+            if (playerScore > 21) {
+                displayMessage('Bust! You lose.. you dumb fish');
+                triggeringfullscreen();
+                gameOver = true;
+            }
+        }
+
+        function dealerTurn() {
+            displayHand(dealerHand, 'dealer-hand', false);
+            let dealerScore = calculateScore(dealerHand);
+            speak(`Dealer's hand: ${dealerHand.map(cardToText).join(', ')}. Score: ${dealerScore}`);
+            while (dealerScore < 17) {
+                dealerHand.push(dealCard());
+                dealerScore = calculateScore(dealerHand);
+                displayHand(dealerHand, 'dealer-hand', false);
+                speak(`Dealer draws ${cardToText(dealerHand[dealerHand.length - 1])}. Score: ${dealerScore}`);
+            }
+            const playerScore = calculateScore(playerHand);
+            if (dealerScore > 21) {
+                displayMessage('Dealer busts! You win!');
+            } else if (dealerScore > playerScore) {
+                displayMessage('Dealer wins! Bust! You lose.. you dumb fish');
+                triggeringfullscreen();
+            } else if (playerScore > dealerScore) {
+                displayMessage('You win! lucky motherfucker');
+            } else {
+                displayMessage('Push stoupid');
+            }
+            gameOver = true;
+        }
+
+        function startGame() {
+            createDeck();
+            shuffleDeck();
+            playerHand = [dealCard(), dealCard()];
+            dealerHand = [dealCard(), dealCard()];
+            gameOver = false;
+            displayHand(playerHand, 'player-hand');
+            displayHand(dealerHand, 'dealer-hand', true);
+            displayMessage('');
+            speak('');
+        }
+
+        document.getElementById('hit-button').addEventListener('click', () => {
+            if (!gameOver) {
+                const newCard = dealCard();
+                playerHand.push(newCard);
+                speak(`You hit: ${cardToText(newCard)}`);
+                displayHand(playerHand, 'player-hand');
+                checkGameOver();
+            }
+        });
+
+        document.getElementById('stand-button').addEventListener('click', () => {
+            if (!gameOver) {
+                speak('You stand.');
+                dealerTurn();
+            }
+        });
+
+        document.getElementById('new-game-button').addEventListener('click', startGame);
+
+        // Start the game on page load
+        startGame();
+
+        // Exit fullscreen when the video ends
+        document.getElementById("image").addEventListener("ended", function() {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else if (document.webkitFullscreenElement) {
+                document.webkitExitFullscreen();
+            } else if (document.msFullscreenElement) {
+                document.msExitFullscreen();
+            }
+        });
+</script>
+</body>
+</html>

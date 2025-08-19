@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .img-2 {
+            max-width: 20vw;
+            height: 300px;
+            align-items: center;
+            border-radius: 1px;
+        }
+
+        .main-co {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            box-sizing: border-box;
+            padding: 20px;
+            gap: 10px;
+            flex-direction: row;
+        }
+
+        .a {
+            padding: 0;
+            max-width: 50vw;
+            height: 300px;
+            align-items: center;
+            border-radius: 9px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0px 0px 39px 3px #7692ce;
+            border: none;
+        }
+
+        img.glow {
+            box-shadow: 0 0 20px 5px #a259ff, 0 0 40px 10px #00eaff;
+            border: 2px solid #a259ff;
+            animation: borderGlow 2s infinite alternate;
+        }
+
+        @keyframes borderGlow {
+            0% {
+                box-shadow: 0 0 10px 2px #a259ff, 0 0 20px 4px #00eaff;
+                border-color: #a259ff;
+            }
+            100% {
+                box-shadow: 0 0 30px 10px #00eaff, 0 0 60px 20px #a259ff;
+                border-color: #00eaff;
+            }
+        }
+
+        .contents {
+            text-align: center;
+            background-color: white;
+            border-radius: 10px;
+            padding: 50px;
+            height: 60vh;
+            width: 60vw;
+            max-width: 690px;
+            margin: 0 auto;
+        }
+
+        html, body {
+            background-color: whitesmoke;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            flex-direction: column;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        .form-container {
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .form-container h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .form-container input {
+            width: 50%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-container input:focus {
+            border-color: aqua;
+            outline: none;
+            animation-duration: 0.5s;
+            border-color: #b7d5e7;
+            box-shadow: 0 0 5px rgba(139, 198, 231, 0.5);
+        }
+
+        .form-container input[type="text"] {
+            font-size: 16px;
+            color: #689abb;
+        }
+
+        .form-container input[type="text"]::placeholder {
+            color: #aaa;
+            font-style: italic;
+        }
+
+        .form-container input::placeholder {
+            color: #aaa;
+        }
+
+        @keyframes example {
+            from { background-color: rgb(255, 255, 255); }
+            to { background-color: #dff5fd; }
+        }
+
+        .form-container button {
+            background-color: blueviolet;
+            color: white;
+            padding: 15px 26px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.5s;
+        }
+
+        .form-container button:hover {
+            box-shadow: 2px 2px 13px 0px rgb(104, 94, 94);
+            transform: scale(1.1);
+        }
+
+        .saved-name {
+            margin-top: 10px;
+            text-align: center;
+            color: #333;
+        }
+
+        @media (max-width: 600px) {
+            .form-container {
+                width: 60vw;
+                padding: 15px;
+            }
+        }
+
+        .jj {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .jj:hover {
+            background-color: #2980b9;
+        }
+
+        .loader-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 20, 0.9), rgba(0, 0, 50, 0.7));
+            z-index: 999;
+        }
+
+        .stylish-loader {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 70px;
+            height: 70px;
+            z-index: 1000;
+            animation: scaleIn 0.5s ease-out forwards;
+        }
+
+        .stylish-loader .glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(52, 152, 219, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+
+        .stylish-loader .ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 4px solid transparent;
+            border-top: 4px solid;
+            border-image: linear-gradient(45deg, #d0d0d0, #1e90ff, #9400d3) 1;
+            border-radius: 50%;
+            animation: spin 1s linear infinite, pulse 1.5s ease-in-out infinite;
+        }
+
+        .stylish-loader .ring:nth-child(2) {
+            width: 50px;
+            height: 50px;
+            top: 10px;
+            left: 10px;
+            border-image: linear-gradient(45deg, #d0d0d0, #4682b4, #8b008b) 1;
+            animation: spin 1.2s linear infinite reverse, pulse 1.5s ease-in-out infinite;
+        }
+
+        .stylish-loader .ring::before,
+        .stylish-loader .ring::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: 50%;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, #ffffff 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .stylish-loader .ring::before {
+            animation: sparkle 1.5s linear infinite;
+        }
+
+        .stylish-loader .ring::after {
+            animation: sparkle 1.5s linear infinite 0.5s;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 10px rgba(192, 192, 192, 0.6), 0 0 20px rgba(30, 144, 255, 0.8); }
+            50% { box-shadow: 0 0 25px rgba(148, 0, 211, 1), 0 0 35px rgba(192, 192, 192, 0.8); }
+            100% { box-shadow: 0 0 10px rgba(192, 192, 192, 0.6), 0 0 20px rgba(30, 144, 255, 0.8); }
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.2); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 0.3; }
+        }
+
+        @keyframes sparkle {
+            0% { transform: translateX(0) rotate(0deg); opacity: 1; }
+            50% { transform: translateX(20px) rotate(180deg); opacity: 0.4; }
+            100% { transform: translateX(0) rotate(360deg); opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            0% { transform: translate(-50%, -50%) scale(0); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        body.loading {
+            background-color: #0a0a0a; /* Deep black background during loading */
+        }
+
+        body.loading .contents,
+        body.loading .a {
+            display: none;
+        }
+
+        body.loading .loader-overlay,
+        body.loading .stylish-loader {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="contents">
+        <div>
+            <p>with us discover a new facade of the INTERNET</p>
+        </div>
+        <div class="form-container">
+            <h2>Enter Your Name</h2>
+            <input type="text" id="nameInput" placeholder="Your name" required>
+            <button class="jj" onclick="saveAndSpeak()">enter yourspace</button>
+            <p class="saved-name" id="savedName"></p>
+        </div>
+        <img class="a" src="./52a0949db5a90b7da4f9bddcf66b2a0c.gif" alt="">
+    </div>
+    <div class="loader-overlay"></div>
+    <div class="stylish-loader" id="loader">
+        <div class="glow"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+    </div>
+</body>
+<script>
+const nameInput = document.getElementById('nameInput');
+const savedName = document.getElementById('savedName');
+
+const savedNamed = localStorage.getItem('username');
+if (savedNamed) {
+    savedName.textContent = `Welcome, dear, ${savedNamed}!`;
+}
+
+// Region-specific messages and country arrays
+const classMessages = {
+    asiaSlimEyes: "brotha you dont have to be a woman to not be able to drive... u guys are just built different, none of y'all can drive and your penis's as small as a spaghetta",
+    arabCountries: "you lucky motherfuckers keep, the real value of an arab is being living bomb, kee being terrorist",
+    vikingCountries: "you stupid viking all u can do is being barbarian",
+    africanCountries: "u poor you can even get water, and even if u could u wouldnt be able to appreciate cause you'd drawn urself",
+    centralEuropeanCountries: "you're him the greatest of all time keep being a chad, my european chad",
+    easternEuropeanCountries: "third ass world country u poor bitch",
+    westernEuropeanCountries: "you're him the greatest of all time keep being a chad, my european chad",
+    americanCountries: "you're as fat as a big ugly cow",
+    indianCountries: "u stink like a dirty indian",
+    default: "Welcome to our global space."
+};
+
+const asiaSlimEyes = [
+    "China", "Japan", "South Korea", "North Korea", "Mongolia", "Taiwan", "Hong Kong", "Macau",
+    "Vietnam", "Thailand", "Myanmar", "Laos", "Cambodia", "Malaysia", "Indonesia", "Singapore", "Philippines"
+];
+const americanCountries = [
+    "United States", "Canada", "Mexico", "Brazil", "Argentina", "Colombia"
+];
+const arabCountries = [
+    "Algeria", "Bahrain", "Comoros", "Djibouti", "Egypt", "Iraq", "Jordan", "Kuwait", "Lebanon", "Libya",
+    "Mauritania", "Morocco", "Oman", "Palestine", "Qatar", "Saudi Arabia", "Somalia", "Sudan", "Syria",
+    "Tunisia", "United Arab Emirates", "Yemen"
+];
+const vikingCountries = [
+    "Denmark", "Norway", "Sweden", "Iceland", "Finland", "Faroe Islands"
+];
+const indianCountries = [
+    "India", "Pakistan", "Bangladesh", "Sri Lanka", "Nepal", "Bhutan", "Maldives", "Afghanistan"
+];
+const africanCountries = [
+    "Angola", "Benin", "Botswana", "Burkina Faso", "Burundi", "Cabo Verde", "Cameroon", "Central African Republic",
+    "Chad", "Comoros", "Democratic Republic of the Congo", "Djibouti", "Equatorial Guinea", "Eritrea", "Eswatini",
+    "Ethiopia", "Gabon", "Gambia", "Ghana", "Guinea", "Guinea-Bissau", "Ivory Coast", "Kenya", "Lesotho", "Liberia",
+    "Madagascar", "Malawi", "Mali", "Mauritius", "Mozambique", "Namibia", "Niger", "Nigeria", "Republic of the Congo",
+    "Rwanda", "Sao Tome and Principe", "Senegal", "Seychelles", "Sierra Leone", "Somalia", "South Africa",
+    "South Sudan", "Sudan", "Tanzania", "Togo", "Uganda", "Zambia", "Zimbabwe"
+];
+const centralEuropeanCountries = [
+    "Austria", "Czech Republic", "Germany", "Hungary", "Liechtenstein", "Poland", "Slovakia", "Slovenia"
+];
+const easternEuropeanCountries = [
+    "Belarus", "Bulgaria", "Moldova", "Romania", "Russia", "Ukraine", "Serbia"
+];
+const westernEuropeanCountries = [
+    "Belgium", "France", "Ireland", "Luxembourg", "Monaco", "Netherlands", "Portugal", "Spain", "United Kingdom"
+];
+
+const allClasses = {
+    asiaSlimEyes,
+    arabCountries,
+    vikingCountries,
+    africanCountries,
+    centralEuropeanCountries,
+    easternEuropeanCountries,
+    westernEuropeanCountries,
+    americanCountries,
+    indianCountries
+};
+
+// Function to determine the region based on country
+function getRegion(country) {
+    for (const [region, countries] of Object.entries(allClasses)) {
+        if (countries.includes(country)) {
+            return region;
+        }
+    }
+    return 'default';
+}
+
+function saveAndSpeak() {
+    const name = nameInput.value.trim();
+    if (!name) {
+        alert("Please enter your name");
+        return;
+    }
+
+    // Save the name
+    localStorage.setItem('username', name);
+    savedName.textContent = `Welcome, dear, ${name}!`;
+
+    // Show loading screen
+    document.body.classList.add('loading');
+    document.querySelector('.jj').disabled = true;
+
+    // Fetch location info
+    fetch('https://ipapi.co/json/') // Using a public IP geolocation API
+        .then(res => res.json())
+        .then(data => {
+            localStorage.setItem('geoData', JSON.stringify(data)); // Save for later use
+
+            const country = data.country_name || 'somewhere';
+            const city = data.city || 'your city';
+            const region = getRegion(country);
+            const regionMessage = classMessages[region] || classMessages.default;
+            const message = `Welcome, dear ${name}, from ${country}, ${city}! ${regionMessage}`;
+
+            const utterance = new SpeechSynthesisUtterance(message);
+            utterance.lang = 'en-US';
+            utterance.pitch = 1.2;
+            utterance.rate = 0.6;
+            utterance.volume = 1;
+
+            window.speechSynthesis.speak(utterance);
+
+            setTimeout(() => {
+                window.location.href = 'music.html';
+            }, 13000); // Increased timeout to allow TTS to complete
+        })
+        .catch(err => {
+            console.error('Error fetching location data:', err);
+            const message = `Welcome, dear ${name}! ${classMessages.default}`;
+
+            const utterance = new SpeechSynthesisUtterance(message);
+            utterance.lang = 'en-US';
+            utterance.pitch = 1.4;
+            utterance.rate = 0.6;
+            utterance.volume = 1;
+
+            window.speechSynthesis.speak(utterance);
+
+            setTimeout(() => {
+                window.location.href = 'music.html';
+            }, 13000); // Increased timeout to allow TTS to complete
+        });
+
+    nameInput.value = '';
+    }
+
+
+</script>
+</html>
